@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(cuid())
+  displayName String
+  email       String       @unique
+  memberships Membership[]
+  createdAt   DateTime     @default(now())
+}
+
+model ProjectSpace {
+  id                   String        @id @default(cuid())
+  name                 String
+  commandBrainMemberId String?
+  viewerTokenHash      String?       @unique
+  commandBrainMember   Membership?  @relation("CommandBrain", fields: [commandBrainMemberId], references: [id])
+  memberships          Membership[]
+  requirements         Requirement[]
+  conversations        Conversation[]
+  auditLogs            AuditLog[]
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+}
+
+model Membership {
+  id                    String         @id @default(cuid())
+  spaceId               String
+  userId                String
+  role                  String
+  space                 ProjectSpace   @relation(fields: [spaceId], references: [id])
+  user                  User           @relation(fields: [userId], references: [id])
+  agent                 AgentIdentity?
+  commandedSpaces       ProjectSpace[] @relation("CommandBrain")
+  assignedRequirements  Requirement[]  @relation("AssignedMember")
+  createdRequirements   Requirement[]  @relation("RequirementCreator")
+  messages              Message[]
+  createdAt             DateTime       @default(now())
+
+  @@unique([spaceId, userId])
+}
+
+model AgentIdentity {
+  id            String     @id @default(cuid())
+  membershipId  String     @unique
+  harness       String
+  displayName   String
+  tokenHash     String
+  active        Boolean    @default(true)
+  membership    Membership @relation(fields: [membershipId], references: [id])
+  messages      Message[]
+  createdAt     DateTime   @default(now())
+}
+
+model Requirement {
+  id                String          @id @default(cuid())
+  spaceId           String
+  title             String
+  description       String
+  status            String
+  createdByMemberId String
+  assignedMemberId  String?
+  acceptanceCriteria String
+  branchName        String?
+  space             ProjectSpace    @relation(fields: [spaceId], references: [id])
+  createdByMember   Membership      @relation("RequirementCreator", fields: [createdByMemberId], references: [id])
+  assignedMember    Membership?     @relation("AssignedMember", fields: [assignedMemberId], references: [id])
+  gate              DeploymentGate?
+  messages          Message[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Conversation {
+  id           String     @id @default(cuid())
+  spaceId      String
+  topic        String
+  scopeType    String
+  requirementId String?
+  space        ProjectSpace @relation(fields: [spaceId], references: [id])
+  messages     Message[]
+  createdAt    DateTime   @default(now())
+}
+
+model Message {
+  id              String         @id @default(cuid())
+  conversationId  String
+  requirementId   String?
+  senderMemberId  String?
+  senderAgentId   String?
+  body            String
+  metadataJson    String         @default("{}")
+  conversation    Conversation   @relation(fields: [conversationId], references: [id])
+  requirement     Requirement?   @relation(fields: [requirementId], references: [id])
+  senderMember    Membership?    @relation(fields: [senderMemberId], references: [id])
+  senderAgent     AgentIdentity? @relation(fields: [senderAgentId], references: [id])
+  createdAt       DateTime       @default(now())
+}
+
+model DeploymentGate {
+  id                  String      @id @default(cuid())
+  requirementId        String      @unique
+  ciStatus             String      @default("PENDING")
+  testStatus           String      @default("PENDING")
+  commandApprovalStatus String     @default("PENDING")
+  releaseStatus        String      @default("BLOCKED")
+  evidenceUrl          String?
+  requirement          Requirement @relation(fields: [requirementId], references: [id])
+  updatedAt            DateTime    @updatedAt
+  createdAt            DateTime    @default(now())
+}
+
+model AuditLog {
+  id          String       @id @default(cuid())
+  spaceId     String
+  actorType   String
+  actorId     String
+  action      String
+  entityType  String
+  entityId    String
+  payloadJson String       @default("{}")
+  space       ProjectSpace @relation(fields: [spaceId], references: [id])
+  createdAt   DateTime     @default(now())
+}

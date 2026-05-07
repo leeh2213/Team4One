@@ -1,0 +1,406 @@
+:root {
+  color: #172126;
+  background: #eef1f2;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #eef1f2;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  align-items: center;
+  background: #1f5f66;
+  border: 1px solid #1f5f66;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 700;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
+}
+
+button:hover {
+  background: #184d53;
+}
+
+.secondaryButton {
+  background: #ffffff;
+  color: #1f5f66;
+}
+
+.secondaryButton:hover {
+  background: #e8f2f2;
+}
+
+.workspaceShell {
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.topBar {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d8e0df;
+  border-radius: 8px;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+  margin: 0 auto 14px;
+  max-width: 1440px;
+  min-height: 76px;
+  padding: 14px 18px;
+}
+
+.topBar h1 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  margin: 2px 0 0;
+}
+
+.topBarMeta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.topBarMeta span {
+  align-items: center;
+  background: #eef7f6;
+  border: 1px solid #cde0df;
+  border-radius: 999px;
+  color: #21545a;
+  display: inline-flex;
+  font-size: 0.83rem;
+  font-weight: 700;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+}
+
+.workspaceGrid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(240px, 0.85fr) minmax(360px, 1.45fr) minmax(300px, 1fr);
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.primaryColumn,
+.secondaryColumn {
+  display: grid;
+  gap: 14px;
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #d8e0df;
+  border-radius: 8px;
+  min-width: 0;
+  padding: 14px;
+}
+
+.panelHeader {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.panelHeader svg {
+  color: #577175;
+  flex: 0 0 auto;
+}
+
+.panel h2 {
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.eyebrow {
+  color: #647274;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.memberList,
+.requirementList,
+.conversationList,
+.gateList {
+  display: grid;
+  gap: 10px;
+}
+
+.memberRow {
+  align-items: flex-start;
+  border-top: 1px solid #edf1f1;
+  display: flex;
+  gap: 10px;
+  min-height: 86px;
+  padding-top: 10px;
+}
+
+.memberRow:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.memberAvatar {
+  align-items: center;
+  background: #e9f0ea;
+  border: 1px solid #cfdcd2;
+  border-radius: 6px;
+  color: #355d43;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+.memberCopy {
+  min-width: 0;
+  width: 100%;
+}
+
+.memberCopy p,
+.memberCopy span,
+.requirementCard p,
+.requirementCard footer,
+.messageRow p {
+  color: #59696c;
+  font-size: 0.84rem;
+  line-height: 1.4;
+  margin: 3px 0 0;
+}
+
+.rowSplit {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.rowSplit strong,
+.requirementCard h3 {
+  overflow-wrap: anywhere;
+}
+
+.statusPill,
+.state,
+.ticket {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 800;
+  gap: 4px;
+  min-height: 24px;
+  padding: 0 8px;
+}
+
+.statusPill.online {
+  background: #e8f5ed;
+  color: #28633b;
+}
+
+.statusPill.handoff {
+  background: #fff2d7;
+  color: #765218;
+}
+
+.statusPill.watching {
+  background: #eef2f8;
+  color: #344d71;
+}
+
+.metricGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.metric {
+  background: #f7f9f8;
+  border: 1px solid #e0e7e5;
+  border-radius: 6px;
+  min-height: 72px;
+  padding: 10px;
+}
+
+.metric span {
+  color: #667578;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.metric strong {
+  font-size: 0.95rem;
+}
+
+.controlStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.requirementList {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.requirementCard {
+  border: 1px solid #dfe6e5;
+  border-radius: 8px;
+  min-height: 164px;
+  padding: 12px;
+}
+
+.ticket {
+  background: #edf3ef;
+  color: #365646;
+}
+
+.state {
+  background: #f0f4f6;
+  color: #465b61;
+}
+
+.requirementCard h3 {
+  font-size: 0.98rem;
+  line-height: 1.3;
+  margin: 12px 0 0;
+}
+
+.requirementCard footer {
+  border-top: 1px solid #edf1f1;
+  margin-top: 12px;
+  padding-top: 10px;
+}
+
+.conversationList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.messageRow {
+  border-left: 3px solid #9ab2b2;
+  min-height: 78px;
+  padding: 0 0 0 10px;
+}
+
+.messageRow time {
+  color: #778588;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.gateRow {
+  align-items: center;
+  border-top: 1px solid #edf1f1;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  min-height: 42px;
+  padding-top: 9px;
+}
+
+.gateRow:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.gateRow svg {
+  color: #577175;
+}
+
+.gateRow span {
+  font-weight: 700;
+}
+
+.gateRow strong {
+  color: #59696c;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 1100px) {
+  .workspaceGrid {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .secondaryColumn {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .workspaceShell {
+    padding: 10px;
+  }
+
+  .topBar,
+  .workspaceGrid,
+  .secondaryColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .topBar {
+    align-items: flex-start;
+    display: grid;
+  }
+
+  .topBarMeta {
+    justify-content: flex-start;
+  }
+
+  .requirementList,
+  .metricGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .rowSplit {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .gateRow {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+
+  .gateRow strong {
+    grid-column: 2;
+  }
+}
